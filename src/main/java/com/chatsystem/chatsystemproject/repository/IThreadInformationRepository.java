@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IThreadInformationRepository {
     List<ThreadInformation> select();
+
+    List<ThreadInformation> selectLastTen();
 }

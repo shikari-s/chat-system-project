@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:wicket="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ManageThread</title>
 </head>
 <body>
+<h3>＜最新のスレッド＞</h3>
+
+<li wicket:id="thread">
+    スレッド名:<a wicket:id="toThreadPage" href="#"><span wicket:id="threadName"></span></a><div></div>
+    ユーザー名<span wicket:id="creatorUserName"></span>
+    <span wicket:id="createTime"></span>
+</li>
 
 </body>
 </html>
