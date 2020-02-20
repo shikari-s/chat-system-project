@@ -15,7 +15,7 @@ public class TopPage extends WebPage {
         add(new Label("UserNameLabel", MySession.get().getMyUserName()));
         add(new BookmarkablePageLink<>("CreateAccountPageLink",CreateAccountPage.class));
         add(new BookmarkablePageLink<>("EditAccountPageLink",EditAccountPage.class));
-        add(new BookmarkablePageLink<>("ManageThreadPageLink",ManageSleddPage.class));
+        add(new BookmarkablePageLink<>("ManageThreadPageLink", ManageThreadPage.class));
         add(new BookmarkablePageLink<>("UserPageLink",UserPage.class));
         add(new BookmarkablePageLink<>("PersonalMessagePageLink",PersonalMessagePage.class));
     }
