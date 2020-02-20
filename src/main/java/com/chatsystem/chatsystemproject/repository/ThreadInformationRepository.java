@@ -17,9 +17,9 @@ public class ThreadInformationRepository implements IThreadInformationRepository
     private JdbcTemplate jdbc;
 
     @Override
-    public List<ThreadInformation> select(){
+    public List<ThreadInformation> select() {
         var sql = "select THREAD.ID as THREAD_ID,THREAD.NAME as THREAD_NAME,CREATE_TIME,USER.NAME as CREATOR_USER_NAME from THREAD " +
                 "inner join USER on THREAD.CREATOR_USER_ID = USER.ID";
-        return jdbc.query(sql,new BeanPropertyRowMapper<>(ThreadInformation.class));
+        return jdbc.query(sql, new BeanPropertyRowMapper<>(ThreadInformation.class));
     }
 }
