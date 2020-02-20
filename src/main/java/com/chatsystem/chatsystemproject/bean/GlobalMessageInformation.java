@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 public class GlobalMessageInformation implements Serializable {
 
     private String senderUserName;
-    private String sleddName;
+    private String threadName;
     private String message;
     private LocalDateTime postTime;
 

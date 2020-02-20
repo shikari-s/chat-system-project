@@ -8,5 +8,5 @@ public class GlobalMessage implements Serializable {
     private String message;
     private LocalDateTime postTime;
     private long senderUserId;
-    private long sleddId;
+    private long threadId;
 }

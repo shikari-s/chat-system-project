@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * GlobalMessageにUserとSleddを結合する
+ * GlobalMessageにUserとThreadを結合する
  */
 @Repository
 public class GlobalMessageInformationRepository implements IGlobalMessageInformationRepository {
@@ -18,9 +18,9 @@ public class GlobalMessageInformationRepository implements IGlobalMessageInforma
 
     @Override
     public List<GlobalMessageInformation> select(){
-        var sql = "select USER.NAME as SENDER_USER_NAME,SLEDD.NAME as SLEDD_NAME,MESSAGE,POST_TIME from GLOBAL_MESSAGE "+
+        var sql = "select USER.NAME as SENDER_USER_NAME,THREAD.NAME as Thread_NAME,MESSAGE,POST_TIME from GLOBAL_MESSAGE "+
                 "inner join USER on GLOBAL_MESSAGE.SENDER_USER_ID = USER.ID " +
-                "inner join SLEDD on GLOBAL_MESSAGE.SLEDD_ID = SLEDD.ID ";
+                "inner join THREAD on GLOBAL_MESSAGE.THREAD_ID = THREAD.ID ";
         return jdbc.query(sql,new BeanPropertyRowMapper<>(GlobalMessageInformation.class));
     }
 }
