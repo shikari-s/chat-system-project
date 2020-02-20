@@ -1,7 +1,7 @@
 -- auto-generated definition
 create table SLEDD
 (
-  ID              INTEGER default NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_FA5F5286_F538_4BEB_A434_EC7521048222" auto_increment,
+  ID              INTEGER auto_increment,
   NAME            VARCHAR(256)     not null,
   CREATE_TIME     TIMESTAMP(26, 6) not null,
   CREATOR_USER_ID BIGINT           not null,
