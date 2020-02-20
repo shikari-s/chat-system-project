@@ -23,4 +23,13 @@ public class GlobalMessageInformationRepository implements IGlobalMessageInforma
                 "inner join THREAD on GLOBAL_MESSAGE.THREAD_ID = THREAD.ID ";
         return jdbc.query(sql,new BeanPropertyRowMapper<>(GlobalMessageInformation.class));
     }
+
+    @Override
+    public List<GlobalMessageInformation> selectBy(long threadId){
+        var sql = "select USER.NAME as SENDER_USER_NAME,THREAD.NAME as Thread_NAME,MESSAGE,POST_TIME from GLOBAL_MESSAGE "+
+                "inner join USER on GLOBAL_MESSAGE.SENDER_USER_ID = USER.ID " +
+                "inner join THREAD on GLOBAL_MESSAGE.THREAD_ID = THREAD.ID " +
+                "where THREAD_ID = ?";
+        return jdbc.query(sql,new BeanPropertyRowMapper<>(GlobalMessageInformation.class),threadId);
+    }
 }

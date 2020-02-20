@@ -10,7 +10,6 @@ public class Thread implements Serializable {
     private LocalDateTime createTime;
     private long creatorUserId;
 
-
     public long getId() {
         return id;
     }
@@ -42,4 +41,5 @@ public class Thread implements Serializable {
     public void setCreatorUserId(long creatorUserId) {
         this.creatorUserId = creatorUserId;
     }
+
 }
