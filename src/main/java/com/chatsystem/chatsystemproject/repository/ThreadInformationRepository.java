@@ -22,4 +22,15 @@ public class ThreadInformationRepository implements IThreadInformationRepository
                 "inner join USER on THREAD.CREATOR_USER_ID = USER.ID";
         return jdbc.query(sql, new BeanPropertyRowMapper<>(ThreadInformation.class));
     }
+
+    @Override
+    public List<ThreadInformation> selectLastTen() {
+        var sql = "select THREAD.ID as THREAD_ID,THREAD.NAME as THREAD_NAME,CREATE_TIME,USER.NAME as CREATOR_USER_NAME from THREAD " +
+                "inner join USER on THREAD.CREATOR_USER_ID = USER.ID " +
+                "order by CREATE_TIME desc limit 10";
+
+        return jdbc.query(sql,new BeanPropertyRowMapper<>(ThreadInformation.class));
+    }
+
+
 }
