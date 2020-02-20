@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -18,4 +19,12 @@ public class ThreadRepository implements IThreadRepository {
         var sql = "select * from THREAD";
         return jdbc.query(sql,new BeanPropertyRowMapper<>(Thread.class));
     }
+
+    //THREAD作成
+    @Override
+    public void insert(String createThreadName, LocalDateTime createTime, long creatorUserId) {
+        var sql = "insert into THREAD(NAME,CREATE_TIME,CREATOR_USER_ID) values (?, ?, ?)";
+        jdbc.update(sql, createThreadName, createTime, creatorUserId);
+    }
+
 }

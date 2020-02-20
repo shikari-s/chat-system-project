@@ -13,5 +13,17 @@
     <li><a wicket:id="UserPageLink" href="#">UserPage</a></li>
     <li><a wicket:id="PersonalMessagePageLink" href="#">PersonalMessage</a></li>
 </ul>
+
+<p><span wicket:id="createThreadLabel"></span></p>
+
+<form action="#" wicket:id="createThread">
+    <div><input type="text" wicket:id="createThreadName"/></div>
+    <div>
+        <button type="submit">作成</button>
+    </div>
+</form>
+
+<p><span wicket:id="createdThread"></span></p>
+
 </body>
 </html>
