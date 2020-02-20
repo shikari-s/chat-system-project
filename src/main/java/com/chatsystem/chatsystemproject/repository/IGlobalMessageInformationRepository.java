@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IGlobalMessageInformationRepository {
     List<GlobalMessageInformation> select();
+
+    List<GlobalMessageInformation> selectBy(long threadId);
 }
