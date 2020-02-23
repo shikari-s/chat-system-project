@@ -37,7 +37,7 @@ public class ManageThreadPage extends WebPage {
                 var toThreadPageLink = new Link<>("toThreadPage"){
                   @Override
                   public void onClick(){
-                      //setResponsePage(new ThreadPage(itemModel));
+                      setResponsePage(new ThreadPage(itemModel));
                   }
                 };
                 var threadNameLabel = new Label("threadName",threadNameModel);
