@@ -1,5 +1,6 @@
 package com.chatsystem.chatsystemproject.page;
 
+import com.chatsystem.chatsystemproject.bean.Thread;
 import com.chatsystem.chatsystemproject.bean.ThreadInformation;
 import com.chatsystem.chatsystemproject.service.IManageThreadPageService;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
@@ -13,6 +14,8 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
+
+import java.time.LocalDateTime;
 
 @AuthorizeInstantiation(Roles.USER)
 @MountPath("ManageThreadPage")
@@ -34,7 +37,7 @@ public class ManageThreadPage extends WebPage {
                 var toThreadPageLink = new Link<>("toThreadPage"){
                   @Override
                   public void onClick(){
-                      System.out.println("ppppp");
+                      //setResponsePage(new ThreadPage(itemModel));
                   }
                 };
                 var threadNameLabel = new Label("threadName",threadNameModel);
