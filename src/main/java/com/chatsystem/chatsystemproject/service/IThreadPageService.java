@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IThreadPageService {
     List<GlobalMessageInformation> getPostedMessageInformation(long threadId);
+
+    void sendMessage(String message, long threadId);
 }

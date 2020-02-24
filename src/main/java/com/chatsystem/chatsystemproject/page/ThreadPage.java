@@ -7,6 +7,8 @@ import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -27,12 +29,13 @@ public class ThreadPage extends WebPage {
 
     public ThreadPage(IModel<ThreadInformation> itemModel){
         var globalMessageInformationListModel = Model.ofList(threadPageService.getPostedMessageInformation(itemModel.getObject().getThreadId()));
-        //ここにThread名表示記述
+
+        add(new Label("ThreadName", itemModel.getObject().getThreadName()));
+
         var globalMessageListView = new ListView<GlobalMessageInformation>("GlobalMessageListView",globalMessageInformationListModel){
 
             @Override
             protected void populateItem(ListItem<GlobalMessageInformation> listItem) {
-                var senderUserNameModel = listItem.getModelObject().getSenderUserName();
                 var toManageUserPageLink = new Link<>("ManageUserPageLink"){
                     @Override
                     public void onClick(){
@@ -48,7 +51,21 @@ public class ThreadPage extends WebPage {
                 listItem.add(toManageUserPageLink);
             }
         };
-        add(globalMessageListView);
 
+        var sendMessageModel = Model.of("");
+
+        var sendMessageForm = new Form<>("sendMessageForm"){
+            @Override
+            protected void onSubmit(){
+                var sendMessage = sendMessageModel.getObject();
+                var msg = "送信データ:" + sendMessage;
+                System.out.println(msg);
+                threadPageService.sendMessage(sendMessage, itemModel.getObject().getThreadId());
+                setResponsePage(new ThreadPage(itemModel));
+            }
+        };
+        add(sendMessageForm);
+        sendMessageForm.add(new TextField<>("sendMessage",sendMessageModel));
+        add(globalMessageListView);
     }
 }

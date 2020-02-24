@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -17,5 +18,11 @@ public class GlobalMessageRepository implements IGlobalMessageRepository {
     public List<GlobalMessage> select(){
         var sql = "select * from GLOBAL_MESSAGE";
         return jdbc.query(sql,new BeanPropertyRowMapper<>(GlobalMessage.class));
+    }
+
+    @Override
+    public void insert(String message, LocalDateTime createTime, long senderUserId, long threadId){
+        var sql = "insert into GLOBAL_MESSAGE(MESSAGE, POST_TIME, SENDER_USER_ID, THREAD_ID) values (?, ?, ?, ?)";
+        jdbc.update(sql, message, createTime, senderUserId, threadId);
     }
 }

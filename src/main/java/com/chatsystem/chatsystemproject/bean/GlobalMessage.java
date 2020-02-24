@@ -9,4 +9,36 @@ public class GlobalMessage implements Serializable {
     private LocalDateTime postTime;
     private long senderUserId;
     private long threadId;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public LocalDateTime getPostTime() {
+        return postTime;
+    }
+
+    public void setPostTime(LocalDateTime postTime) {
+        this.postTime = postTime;
+    }
+
+    public long getSenderUserId() {
+        return senderUserId;
+    }
+
+    public void setSenderUserId(long senderUserId) {
+        this.senderUserId = senderUserId;
+    }
+
+    public long getThreadId() {
+        return threadId;
+    }
+
+    public void setThreadId(long threadId) {
+        this.threadId = threadId;
+    }
 }
