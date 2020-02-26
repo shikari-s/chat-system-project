@@ -32,5 +32,23 @@ public class ThreadInformationRepository implements IThreadInformationRepository
         return jdbc.query(sql,new BeanPropertyRowMapper<>(ThreadInformation.class));
     }
 
+    @Override
+    public List<ThreadInformation> selectBy(Long i) {
+        var sql = "select THREAD.ID as THREAD_ID,THREAD.NAME as THREAD_NAME,CREATE_TIME,USER.NAME as CREATOR_USER_NAME from THREAD " +
+                "inner join USER on THREAD.CREATOR_USER_ID = USER.ID " +
+                "where THREAD.CREATOR_USER_ID = ?";
+        return jdbc.query(sql, new BeanPropertyRowMapper<>(ThreadInformation.class),i);
+    }
 
+    @Override
+    public ThreadInformation selectLastBy(Long userId) {
+        var sql = "select THREAD.ID as THREAD_ID,THREAD.NAME as THREAD_NAME,CREATE_TIME,USER.NAME as CREATOR_USER_NAME from THREAD " +
+                "inner join USER on THREAD.CREATOR_USER_ID = USER.ID " +
+                "where THREAD.CREATOR_USER_ID = ?" +
+                "order by CREATE_TIME desc limit 1";
+        return jdbc.query(sql,new BeanPropertyRowMapper<>(ThreadInformation.class),userId)
+                .stream()
+                .findFirst()
+                .orElseThrow();
+    }
 }

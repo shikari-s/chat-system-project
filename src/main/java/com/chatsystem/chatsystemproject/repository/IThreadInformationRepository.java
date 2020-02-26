@@ -8,4 +8,8 @@ public interface IThreadInformationRepository {
     List<ThreadInformation> select();
 
     List<ThreadInformation> selectLastTen();
+
+    List<ThreadInformation> selectBy(Long i);
+
+    ThreadInformation selectLastBy(Long userId);
 }
