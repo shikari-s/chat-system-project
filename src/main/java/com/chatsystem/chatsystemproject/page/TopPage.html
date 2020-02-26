@@ -14,7 +14,7 @@
     <li><a wicket:id="PersonalMessagePageLink" href="#">PersonalMessage</a></li>
 </ul>
 
-<p><span wicket:id="createThreadLabel"></span></p>
+<h1>新しくスレッドを作成する</h1>
 
 <form action="#" wicket:id="createThread">
     <div><input type="text" wicket:id="createThreadName"/></div>
@@ -23,7 +23,16 @@
     </div>
 </form>
 
-<p><span wicket:id="createdThread"></span></p>
+<h2>作成したスレッド一覧</h2>
+
+<ol>
+    <li wicket:id="myCreatedThreads">
+        <a wicket:id="toThreadPage" href="#">
+            <span wicket:id="myCreatedThreadName"></span>
+        </a>
+        <span wicket:id="createdTime"></span>
+    </li>
+</ol>
 
 </body>
 </html>

@@ -11,4 +11,8 @@ public interface IThreadInformationRepository {
 
     //最新の10件を書き換えるときに使用するsql
     List<ThreadInformation> selectBy(String threadName);
+
+    List<ThreadInformation> selectBy(Long i);
+
+    ThreadInformation selectLastBy(Long userId);
 }

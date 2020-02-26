@@ -1,18 +1,21 @@
 package com.chatsystem.chatsystemproject.page;
 
+import com.chatsystem.chatsystemproject.service.ICreateAccoountPageService;
 import org.apache.wicket.markup.html.WebPage;
 
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
-
 
 @MountPath("CreateAccount")
 public class CreateAccountPage extends WebPage {
+    @SpringBean
+    private ICreateAccoountPageService createAccoountPageService;
+
     public CreateAccountPage(){
 
         var userNameModel = Model.of("");
@@ -26,11 +29,8 @@ public class CreateAccountPage extends WebPage {
             public void onSubmit() {
                 var userName = userNameModel.getObject();
                 var password = passwordModel.getObject();
-                var msg = "送信データ："
-                        + userName
-                        + ","
-                        + password;
-                System.out.println(msg);
+                createAccoountPageService.registerUser(userName,password);
+                setResponsePage(new SignInPage());
             }
         });
 

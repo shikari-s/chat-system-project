@@ -34,4 +34,12 @@ public class UserRepository implements IUserRepository{
         var sql = "select * from USER where NAME = ? ";
         return jdbc.query(sql,new BeanPropertyRowMapper<>(User.class),userName);
     }
+
+    @Override
+    public int insert(String userName,String password){
+        var sql = "insert into User(NAME,PASSWORD) values(?,?)";
+        var n = jdbc.update(sql, userName, password);
+        return n;
+
+    }
 }

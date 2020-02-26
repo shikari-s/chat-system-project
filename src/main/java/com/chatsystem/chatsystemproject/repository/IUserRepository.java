@@ -10,4 +10,7 @@ public interface IUserRepository {
     User selectBy(String userName);
 
     List<User> selectByUserName(String userName);
+
+    public int insert(String userName, String userPass);
+
 }
