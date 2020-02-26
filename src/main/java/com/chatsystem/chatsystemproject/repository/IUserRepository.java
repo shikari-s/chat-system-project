@@ -8,4 +8,6 @@ public interface IUserRepository {
     List<User> select();
 
     User selectBy(String userName);
+
+    List<User> selectByUserName(String userName);
 }

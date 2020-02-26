@@ -28,4 +28,10 @@ public class UserRepository implements IUserRepository{
                 .findFirst()
                 .orElseThrow();
     }
+
+    @Override
+    public List<User> selectByUserName(String userName){
+        var sql = "select * from USER where NAME = ? ";
+        return jdbc.query(sql,new BeanPropertyRowMapper<>(User.class),userName);
+    }
 }
