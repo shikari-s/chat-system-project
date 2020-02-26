@@ -28,4 +28,12 @@ public class UserRepository implements IUserRepository{
                 .findFirst()
                 .orElseThrow();
     }
+
+    @Override
+    public int insert(String userName,String password){
+        var sql = "insert into User(NAME,PASSWORD) values(?,?)";
+        var n = jdbc.update(sql, userName, password);
+        return n;
+
+    }
 }
