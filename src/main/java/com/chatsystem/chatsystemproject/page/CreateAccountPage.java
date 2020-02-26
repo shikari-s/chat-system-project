@@ -30,7 +30,7 @@ public class CreateAccountPage extends WebPage {
                 var userName = userNameModel.getObject();
                 var password = passwordModel.getObject();
                 createAccoountPageService.registerUser(userName,password);
-                setResponsePage(new UserPage());
+                setResponsePage(new SignInPage());
             }
         });
 
