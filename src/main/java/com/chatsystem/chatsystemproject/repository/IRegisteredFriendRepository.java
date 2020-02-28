@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IRegisteredFriendRepository {
     List<RegisteredFriend> select();
+
+    List<RegisteredFriend> selectBy(long usserId);
 }

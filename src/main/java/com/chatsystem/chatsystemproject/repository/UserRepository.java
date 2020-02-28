@@ -1,10 +1,10 @@
 package com.chatsystem.chatsystemproject.repository;
 
 import com.chatsystem.chatsystemproject.bean.User;
+import com.chatsystem.chatsystemproject.bean.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.SingleColumnRowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,8 +30,8 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public List<User> selectByUserName(String userName){
-        var sql = "select * from USER where NAME = ? ";
+    public List<User> selectLikeNameBy(String userName){
+        var sql = "select ID from USER where NAME LIKE '%'||?||'%'";
         return jdbc.query(sql,new BeanPropertyRowMapper<>(User.class),userName);
     }
 

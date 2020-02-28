@@ -1,6 +1,7 @@
 package com.chatsystem.chatsystemproject.repository;
 
 import com.chatsystem.chatsystemproject.bean.RegisteredFriend;
+import com.chatsystem.chatsystemproject.bean.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,5 +18,11 @@ public class RegisteredFriendRepository implements IRegisteredFriendRepository {
     public List<RegisteredFriend> select(){
         var sql = "select * from REGISTERED_FRIEND";
         return jdbc.query(sql,new BeanPropertyRowMapper<>(RegisteredFriend.class));
+    }
+
+    @Override
+    public List<RegisteredFriend> selectBy(long userId){
+        var sql = "select * from REGISTERED_FRIEND WHERE REGISTERED_USER_ID";
+        return jdbc.query(sql,new BeanPropertyRowMapper<>(RegisteredFriend.class),userId);
     }
 }

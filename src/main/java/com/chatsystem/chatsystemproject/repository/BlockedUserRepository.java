@@ -18,4 +18,10 @@ public class BlockedUserRepository implements IBlockedUserRepository{
         var sql = "select * from BLOCKED_USER";
         return jdbc.query(sql, new BeanPropertyRowMapper<>(BlockedUser.class));
     }
+
+    @Override
+    public List<BlockedUser> selectBy(long userId){
+        var sql = "select * from BLOCKED_USER WHERE BLOCKED_USER.REGISTERED_USER_ID = ?";
+        return jdbc.query(sql,new BeanPropertyRowMapper<>(BlockedUser.class),userId);
+    }
 }
