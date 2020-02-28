@@ -23,4 +23,10 @@ public class ManageThreadPageService implements IManageThreadPageService{
         return recentlySleddList;
     }
 
+    @Override
+    public List<ThreadInformation> searchThread(String threadName){
+        var searchedThreadList = threadInformationRepository.selectBy(threadName);
+        return searchedThreadList;
+    }
+
 }

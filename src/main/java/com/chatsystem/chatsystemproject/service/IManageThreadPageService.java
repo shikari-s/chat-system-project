@@ -8,4 +8,5 @@ public interface IManageThreadPageService {
 
         public List<ThreadInformation> selectBy();
 
+    List<ThreadInformation> searchThread(String threadName);
 }

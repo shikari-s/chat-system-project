@@ -5,13 +5,20 @@
     <title>ManageThread</title>
 </head>
 <body>
-<h3>＜最新のスレッド＞</h3>
+<h3>スレッド検索フォーム</h3>
+<form action = "#" wicket:id="searchThread">
+    スレッド名:<input type="text" wicket:id="threadName"/>
+    <button wicket:id="ajaxButton">検索</button>
+</form>
 
+<h3>＜スレッド＞</h3>
+<div wicket:id="ThreadListWMC">
 <li wicket:id="thread">
     スレッド名:<a wicket:id="toThreadPage" href="#"><span wicket:id="threadName"></span></a><div></div>
     ユーザー名<span wicket:id="creatorUserName"></span>
     <span wicket:id="createTime"></span>
 </li>
+</div>
 
 </body>
 </html>

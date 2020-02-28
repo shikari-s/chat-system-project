@@ -32,12 +32,13 @@ public class ThreadInformationRepository implements IThreadInformationRepository
         return jdbc.query(sql,new BeanPropertyRowMapper<>(ThreadInformation.class));
     }
 
+    //最新の10件を書き換えるときに使用するsql
     @Override
-    public List<ThreadInformation> selectBy(Long i) {
+    public List<ThreadInformation> selectBy(String threadName){
         var sql = "select THREAD.ID as THREAD_ID,THREAD.NAME as THREAD_NAME,CREATE_TIME,USER.NAME as CREATOR_USER_NAME from THREAD " +
                 "inner join USER on THREAD.CREATOR_USER_ID = USER.ID " +
-                "where THREAD.CREATOR_USER_ID = ?";
-        return jdbc.query(sql, new BeanPropertyRowMapper<>(ThreadInformation.class),i);
+                "WHERE THREAD.NAME LIKE '%'||?||'%'";
+        return jdbc.query(sql, new BeanPropertyRowMapper<>(ThreadInformation.class),threadName);
     }
 
     @Override
