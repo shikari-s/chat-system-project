@@ -8,5 +8,5 @@ import java.util.List;
 public interface IGlobalMessageRepository {
     List<GlobalMessage> select();
 
-    void insert(String message, LocalDateTime createTime, long senderUserId, long threadId);
+    void insert(GlobalMessage globalMessage);
 }

@@ -5,7 +5,7 @@ import com.chatsystem.chatsystemproject.bean.GlobalMessageInformation;
 import java.util.List;
 
 public interface IThreadPageService {
-    List<GlobalMessageInformation> getPostedMessageInformation(long threadId);
+    List<GlobalMessageInformation> getSendMessageInformation(long threadId);
 
     void sendMessage(String message, long threadId);
 }

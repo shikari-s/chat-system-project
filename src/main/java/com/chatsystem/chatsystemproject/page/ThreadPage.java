@@ -25,11 +25,11 @@ public class ThreadPage extends WebPage {
     private IThreadPageService threadPageService;
 
     public ThreadPage(IModel<ThreadInformation> itemModel){
-        var globalMessageInformationListModel = Model.ofList(threadPageService.getPostedMessageInformation(itemModel.getObject().getThreadId()));
+        var globalMessageInformationListModel = Model.ofList(threadPageService.getSendMessageInformation(itemModel.getObject().getThreadId()));
 
         add(new Label("ThreadName", itemModel.getObject().getThreadName()));
 
-        var globalMessageListView = new ListView<GlobalMessageInformation>("GlobalMessageListView",globalMessageInformationListModel){
+        add(new ListView<GlobalMessageInformation>("GlobalMessageListView",globalMessageInformationListModel){
 
             @Override
             protected void populateItem(ListItem<GlobalMessageInformation> listItem) {
@@ -46,22 +46,18 @@ public class ThreadPage extends WebPage {
                 listItem.add(new Label("Message",listItem.getModelObject().getMessage()));
                 listItem.add(new Label("PostTime",listItem.getModelObject().getPostTime()));
             }
-        };
+        });
 
         var sendMessageModel = Model.of("");
 
-        var sendMessageForm = new Form<>("sendMessageForm"){
+        var sendMessageForm = new Form<>("SendMessageForm"){
             @Override
             protected void onSubmit(){
-                var sendMessage = sendMessageModel.getObject();
-                var msg = "送信データ:" + sendMessage;
-                System.out.println(msg);
-                threadPageService.sendMessage(sendMessage, itemModel.getObject().getThreadId());
+                threadPageService.sendMessage(sendMessageModel.getObject(), itemModel.getObject().getThreadId());
                 setResponsePage(new ThreadPage(itemModel));
             }
         };
         add(sendMessageForm);
-        sendMessageForm.add(new TextField<>("sendMessage",sendMessageModel));
-        add(globalMessageListView);
+        sendMessageForm.add(new TextField<>("SendMessage",sendMessageModel));
     }
 }
