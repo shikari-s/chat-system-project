@@ -9,7 +9,6 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -17,8 +16,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
-
-import java.util.List;
 
 @AuthorizeInstantiation(Roles.USER)
 @MountPath("Thread")
@@ -28,11 +25,13 @@ public class ThreadPage extends WebPage {
     private IThreadPageService threadPageService;
 
     public ThreadPage(IModel<ThreadInformation> itemModel){
-        var globalMessageInformationListModel = Model.ofList(threadPageService.getPostedMessageInformation(itemModel.getObject().getThreadId()));
+
+        //メッセージのリアルタイム表示システム
+        var globalMessageInformationListModel = Model.ofList(threadPageService.getSendMessageInformation(itemModel.getObject().getThreadId()));
 
         add(new Label("ThreadName", itemModel.getObject().getThreadName()));
 
-        var globalMessageListView = new ListView<GlobalMessageInformation>("GlobalMessageListView",globalMessageInformationListModel){
+        add(new ListView<GlobalMessageInformation>("GlobalMessageListView",globalMessageInformationListModel){
 
             @Override
             protected void populateItem(ListItem<GlobalMessageInformation> listItem) {
@@ -45,27 +44,23 @@ public class ThreadPage extends WebPage {
                         //setResponsePage(new ManageThreadPage(senderUserNameModel));
                     }
                 };
-                listItem.add(new Label("SenderUserName",listItem.getModelObject().getSenderUserName()));
+                listItem.add(toManageUserPageLink.add(new Label("SenderUserName",listItem.getModelObject().getSenderUserName())));
                 listItem.add(new Label("Message",listItem.getModelObject().getMessage()));
                 listItem.add(new Label("PostTime",listItem.getModelObject().getPostTime()));
-                listItem.add(toManageUserPageLink);
             }
-        };
+        });
 
+        //メッセージ送信用フォームとメッセージ送信のシステム
         var sendMessageModel = Model.of("");
 
-        var sendMessageForm = new Form<>("sendMessageForm"){
+        var sendMessageForm = new Form<>("SendMessageForm"){
             @Override
             protected void onSubmit(){
-                var sendMessage = sendMessageModel.getObject();
-                var msg = "送信データ:" + sendMessage;
-                System.out.println(msg);
-                threadPageService.sendMessage(sendMessage, itemModel.getObject().getThreadId());
+                threadPageService.sendMessage(sendMessageModel.getObject(), itemModel.getObject().getThreadId());
                 setResponsePage(new ThreadPage(itemModel));
             }
         };
         add(sendMessageForm);
-        sendMessageForm.add(new TextField<>("sendMessage",sendMessageModel));
-        add(globalMessageListView);
+        sendMessageForm.add(new TextField<>("SendMessage",sendMessageModel));
     }
 }

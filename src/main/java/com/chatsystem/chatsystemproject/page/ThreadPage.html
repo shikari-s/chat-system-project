@@ -8,14 +8,13 @@
 <span wicket:id="ThreadName"></span>
 
 <ul wicket:id="GlobalMessageListView">
-    <li><span wicket:id="SenderUserName"></span>
-    <a wicket:id="ManageUserPageLink" href="#">ManageUserPage</a></li>
+    <li><a wicket:id="ManageUserPageLink" href="#"><span wicket:id="SenderUserName"></span></a></li>
     <li><span wicket:id="Message"></span></li>
     <li><span wicket:id="PostTime"></span></li>
 </ul>
 
-<form action="#" wicket:id="sendMessageForm">
-    <div><input type="text" wicket:id="sendMessage"></div>
+<form action="#" wicket:id="SendMessageForm">
+    <div><input type="text" wicket:id="SendMessage"></div>
     <div><button type="submit">メッセージ送信</button></div>
 </form>
 </body>

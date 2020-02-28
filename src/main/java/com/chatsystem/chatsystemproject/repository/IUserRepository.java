@@ -9,6 +9,8 @@ public interface IUserRepository {
 
     User selectLastBy(String userName);
 
+    List<User> selectByUserName(String userName);
+
     public int insert(String userName, String userPass);
 
 }
