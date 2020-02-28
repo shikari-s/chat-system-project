@@ -27,6 +27,8 @@ public class PersonalMessagePage extends WebPage {
          */
         long testUserId = 1;
         var testReceiverUserName = "tester";
+
+        //メッセージのリアルタイム表示システム
         var personalMessageInformationListModel = Model.ofList(personalMessagePageService.getSendMessageInformation(testUserId));
 
         add(new Label("ReceiverUserName", testReceiverUserName));
@@ -41,6 +43,7 @@ public class PersonalMessagePage extends WebPage {
             }
         });
 
+        //メッセージ送信用フォームとメッセージ送信のシステム
         var sendMessageModel = Model.of("");
 
         var sendMessageForm = new Form<>("SendMessageForm"){

@@ -25,6 +25,8 @@ public class ThreadPage extends WebPage {
     private IThreadPageService threadPageService;
 
     public ThreadPage(IModel<ThreadInformation> itemModel){
+
+        //メッセージのリアルタイム表示システム
         var globalMessageInformationListModel = Model.ofList(threadPageService.getSendMessageInformation(itemModel.getObject().getThreadId()));
 
         add(new Label("ThreadName", itemModel.getObject().getThreadName()));
@@ -48,6 +50,7 @@ public class ThreadPage extends WebPage {
             }
         });
 
+        //メッセージ送信用フォームとメッセージ送信のシステム
         var sendMessageModel = Model.of("");
 
         var sendMessageForm = new Form<>("SendMessageForm"){
