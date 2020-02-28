@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:wicket="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>DirectMessage</title>
 </head>
 <body>
+<span wicket:id="ReceiverUserName"></span>
+
+<ul wicket:id="PersonalMessageListView">
+    <li><span wicket:id="SenderUserName"></span></li>
+    <li><span wicket:id="Message"></span></li>
+    <li><span wicket:id="PostTime"></span></li>
+</ul>
+
+<form action="#" wicket:id="SendMessageForm">
+    <div><input type="text" wicket:id="SendMessage"></div>
+    <div><button type="submit">メッセージ送信</button></div>
+</form>
 
 </body>
 </html>

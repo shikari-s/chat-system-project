@@ -8,7 +8,7 @@ import java.util.List;
 public interface IUserRepository {
     List<User> select();
 
-    User selectBy(String userName);
+    User selectLastBy(String userName);
 
     List<User> selectLikeNameBy(String userName);
 

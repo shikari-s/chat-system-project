@@ -7,4 +7,6 @@ import java.util.List;
 public interface
 IPersonalMessageInformationRepository {
     List<PersonalMessageInformation> select();
+
+    List<PersonalMessageInformation> selectBy(long receiverUserId);
 }

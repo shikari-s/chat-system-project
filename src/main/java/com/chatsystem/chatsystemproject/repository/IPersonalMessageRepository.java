@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IPersonalMessageRepository {
     List<PersonalMessage> select();
+
+    void insert(PersonalMessage personalMessage);
 }

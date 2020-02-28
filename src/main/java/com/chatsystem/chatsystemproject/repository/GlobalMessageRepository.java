@@ -21,8 +21,8 @@ public class GlobalMessageRepository implements IGlobalMessageRepository {
     }
 
     @Override
-    public void insert(String message, LocalDateTime createTime, long senderUserId, long threadId){
+    public void insert(GlobalMessage globalMessage){
         var sql = "insert into GLOBAL_MESSAGE(MESSAGE, POST_TIME, SENDER_USER_ID, THREAD_ID) values (?, ?, ?, ?)";
-        jdbc.update(sql, message, createTime, senderUserId, threadId);
+        jdbc.update(sql, globalMessage.getMessage(), globalMessage.getPostTime(), globalMessage.getSenderUserId(), globalMessage.getThreadId());
     }
 }

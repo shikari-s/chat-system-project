@@ -21,7 +21,7 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public User selectBy(String userName){
+    public User selectLastBy(String userName){
         var sql = "select * from USER where NAME = ?";
         return jdbc.query(sql,new BeanPropertyRowMapper<>(User.class),userName)
                 .stream()
@@ -40,6 +40,6 @@ public class UserRepository implements IUserRepository{
         var sql = "insert into User(NAME,PASSWORD) values(?,?)";
         var n = jdbc.update(sql, userName, password);
         return n;
-
     }
+
 }

@@ -7,7 +7,7 @@ import java.util.List;
 public interface ITopPageService {
     void createThread(String createThreadName);
 
-    List<ThreadInformation> myCreatedThreadList(Long i);
+    List<ThreadInformation> getMyThreadList(Long i);
 
     ThreadInformation getThreadInformation(Long myUserId);
 }

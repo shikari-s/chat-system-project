@@ -12,7 +12,7 @@ public class SignInPageService implements ISignInPageService {
 
     @Override
     public boolean authenticate(String userName, String password){
-        var user = userRepository.selectBy(userName);
+        var user = userRepository.selectLastBy(userName);
         if(user.getPassword().equals(password)){
             MySession.get().signIn(user.getId(),user.getName());
             return true;
