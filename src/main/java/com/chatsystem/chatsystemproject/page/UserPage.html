@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:wicket="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+
+<h1>ユーザー検索</h1>
+
+<form action="#" wicket:id="searchUserForm">
+    <div>
+        <input type="text" wicket:id="inputUserName"/>
+    </div>
+    <div>
+        <button wicket:id="searchUserButton" type="submit">検索</button>
+    </div>
+</form>
 
 </body>
 </html>

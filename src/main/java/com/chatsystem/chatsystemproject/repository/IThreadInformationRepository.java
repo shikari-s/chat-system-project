@@ -9,7 +9,16 @@ public interface IThreadInformationRepository {
 
     List<ThreadInformation> selectLastTen();
 
-    List<ThreadInformation> selectBy(Long i);
+    /**
+     * @param userId
+     * @return 自身が作成したスレッドのリスト
+     */
+    List<ThreadInformation> selectBy(Long userId);
 
+    /**
+     * スレッドを作成したときのスレッドの情報を取得
+     * @param userId
+     * @return 作成したスレッド情報
+     */
     ThreadInformation selectLastBy(Long userId);
 }

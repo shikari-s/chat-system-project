@@ -33,11 +33,11 @@ public class ThreadInformationRepository implements IThreadInformationRepository
     }
 
     @Override
-    public List<ThreadInformation> selectBy(Long i) {
+    public List<ThreadInformation> selectBy(Long userId) {
         var sql = "select THREAD.ID as THREAD_ID,THREAD.NAME as THREAD_NAME,CREATE_TIME,USER.NAME as CREATOR_USER_NAME from THREAD " +
                 "inner join USER on THREAD.CREATOR_USER_ID = USER.ID " +
                 "where THREAD.CREATOR_USER_ID = ?";
-        return jdbc.query(sql, new BeanPropertyRowMapper<>(ThreadInformation.class),i);
+        return jdbc.query(sql, new BeanPropertyRowMapper<>(ThreadInformation.class),userId);
     }
 
     @Override
