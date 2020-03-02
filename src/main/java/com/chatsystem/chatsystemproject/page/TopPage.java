@@ -16,6 +16,8 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.protocol.ws.api.WebSocketBehavior;
+import org.apache.wicket.protocol.ws.api.message.ConnectedMessage;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -34,7 +36,12 @@ public class TopPage extends WebPage {
         add(new BookmarkablePageLink<>("ManageThreadPageLink", ManageThreadPage.class));
         add(new BookmarkablePageLink<>("UserPageLink",UserPage.class));
         add(new BookmarkablePageLink<>("PersonalMessagePageLink",PersonalMessagePage.class));
-
+        add(new WebSocketBehavior() {
+            @Override
+            protected void onConnect(ConnectedMessage message) {
+                super.onConnect(message);
+            }
+        });
         //スレッド作成の際のスレッド名を取得
         var createThreadNameModel = Model.of("");
 
