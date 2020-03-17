@@ -22,7 +22,13 @@ public class RegisteredFriendRepository implements IRegisteredFriendRepository {
 
     @Override
     public List<RegisteredFriend> selectBy(long userId){
-        var sql = "select * from REGISTERED_FRIEND WHERE REGISTERED_USER_ID";
+        var sql = "select * from REGISTERED_FRIEND WHERE REGISTERED_USER_ID = ?";
         return jdbc.query(sql,new BeanPropertyRowMapper<>(RegisteredFriend.class),userId);
+    }
+
+    @Override
+    public void insert(Long myUserId,Long userId){
+        var sql = "insert into REGISTERED_FRIEND(REGISTERED_USER_ID,REGISTRANT_USER_ID) values (?,?)";
+        jdbc.update(sql,myUserId,userId);
     }
 }

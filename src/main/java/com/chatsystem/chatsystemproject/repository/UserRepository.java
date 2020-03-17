@@ -30,9 +30,9 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public List<User> selectLikeNameBy(String userName){
-        var sql = "select ID from USER where NAME LIKE '%'||?||'%'";
-        return jdbc.query(sql,new BeanPropertyRowMapper<>(User.class),userName);
+    public List<User> selectLikeNameBy(String userName ,Long myUserId){
+        var sql = "select ID , NAME from USER where NAME LIKE '%'||?||'%' and ID not in (?)";
+        return jdbc.query(sql,new BeanPropertyRowMapper<>(User.class),userName,myUserId);
     }
 
     @Override

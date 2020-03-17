@@ -26,7 +26,7 @@ public class ManageUserPageService implements IManageUserPageService{
 
     @Override
     public List<UserStatus> getUserList(String userName){
-        var userList = userRepository.selectLikeNameBy(userName);
+        var userList = userRepository.selectLikeNameBy(userName,MySession.get().getMyUserId());
         var registeredFriendList = registeredFriendRepository.selectBy(MySession.get().getMyUserId());
         var blockedUserList = blockedUserRepository.selectBy(MySession.get().getMyUserId());
         var userStatusList = new ArrayList<UserStatus>();
@@ -37,6 +37,41 @@ public class ManageUserPageService implements IManageUserPageService{
             userStatusList.add(userStatus);
         });
         return userStatusList;
+    }
+
+    //test用
+    @Override
+    public List<UserStatus> getUserListTest(String userName){
+        var userList = userRepository.selectLikeNameBy(userName,MySession.get().getMyUserId());
+        var registeredFriendList = registeredFriendRepository.selectBy(MySession.get().getMyUserId());
+        var blockedUserList = blockedUserRepository.selectBy(MySession.get().getMyUserId());
+        var userStatusList = new ArrayList<UserStatus>();
+        for(int i=0;i<userList.size();i++) {
+            var userStatus = new UserStatus(userList.get(i).getId(),userList.get(i).getName());
+            for(int j=0;j<registeredFriendList.size();j++) {
+                if (registeredFriendList.get(j) != null && registeredFriendList.get(j).getRegistrantUserId() == userList.get(i).getId()) {
+                    userStatus.setRegisteredFriend(true);
+                }
+            }
+            for (int j=0;j<blockedUserList.size();j++) {
+                if (blockedUserList.get(j) != null && blockedUserList.get(j).getRegistrantUserId() == userList.get(i).getId()) {
+                    userStatus.setBlocked(true);
+                }
+            }
+            userStatusList.add(userStatus);
+        }
+        return userStatusList;
+
+    }
+
+    @Override
+    public void registerFriend(Long userId){
+        registeredFriendRepository.insert(MySession.get().getMyUserId(),userId);
+    }
+
+    @Override
+    public void blockFriend(Long userId){
+        blockedUserRepository.insert(MySession.get().getMyUserId(),userId);
     }
 
 }

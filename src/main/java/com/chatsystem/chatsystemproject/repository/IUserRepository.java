@@ -10,7 +10,7 @@ public interface IUserRepository {
 
     User selectLastBy(String userName);
 
-    List<User> selectLikeNameBy(String userName);
+    List<User> selectLikeNameBy(String userName,Long myUserId);
 
     public int insert(String userName, String userPass);
 
