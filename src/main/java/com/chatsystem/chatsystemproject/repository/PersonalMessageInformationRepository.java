@@ -31,8 +31,9 @@ public class PersonalMessageInformationRepository implements IPersonalMessageInf
         var sql = "select SENDER.NAME as SENDER_USER_NAME, RECEIVER.NAME as RECEIVER_USER_NAME,MESSAGE,POST_TIME from PERSONAL_MESSAGE " +
                 "inner join USER as SENDER on PERSONAL_MESSAGE.SENDER_USER_ID = SENDER.ID " +
                 "inner join USER as RECEIVER on PERSONAL_MESSAGE.RECEIVER_USER_ID = RECEIVER.ID " +
-                "where PERSONAL_MESSAGE.RECEIVER_USER_ID = ? and PERSONAL_MESSAGE.RECEIVER_USER_ID = ?";
-        return jdbc.query(sql, new BeanPropertyRowMapper<>(PersonalMessageInformation.class), MySession.get().getMyUserId(), receiverUserId);
+                "where PERSONAL_MESSAGE.SENDER_USER_ID = ? and PERSONAL_MESSAGE.RECEIVER_USER_ID = ?" +
+                "or PERSONAL_MESSAGE.RECEIVER_USER_ID = ? and PERSONAL_MESSAGE.SENDER_USER_ID = ?";
+        return jdbc.query(sql, new BeanPropertyRowMapper<>(PersonalMessageInformation.class), MySession.get().getMyUserId(), receiverUserId, MySession.get().getMyUserId(), receiverUserId);
     }
 }
 
