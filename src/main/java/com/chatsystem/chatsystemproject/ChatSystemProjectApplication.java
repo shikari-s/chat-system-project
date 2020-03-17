@@ -6,8 +6,13 @@ import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSessio
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+
+@EnableWebSocket
 @SpringBootApplication
-public class ChatSystemProjectApplication extends WicketBootSecuredWebApplication{
+public class ChatSystemProjectApplication extends WicketBootSecuredWebApplication implements WebSocketConfigurer {
 
 //	@Autowired
 //	private ApplicationContext applicationContext;
@@ -20,6 +25,11 @@ public class ChatSystemProjectApplication extends WicketBootSecuredWebApplicatio
 	@Override
 	protected Class<? extends AbstractAuthenticatedWebSession> getWebSessionClass() {
 		return MySession.class;
+	}
+
+	@Override
+	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+		// ここなにするん？
 	}
 
 }
