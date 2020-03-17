@@ -3,14 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Thread</title>
-    <script>
-        window.onload = function() {
-
-            setInterval(function() {
-                Wicket.WebSocket.send("update");
-            }, 1000)
-        }
-    </script>
 </head>
 <body>
 <span wicket:id="ThreadName"></span>
@@ -26,5 +18,6 @@
     <div><input type="text" wicket:id="SendMessage"></div>
     <div><button type="submit">メッセージ送信</button></div>
 </form>
+<a wicket:id="TopPageLink" href="#">Topへ戻る</a>
 </body>
 </html>

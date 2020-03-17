@@ -7,7 +7,10 @@ import org.apache.wicket.Application;
 import org.apache.wicket.Component;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.core.request.mapper.HomePageMapper;
 import org.apache.wicket.event.IEvent;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -71,7 +74,7 @@ public class ThreadPage extends WebPage {
                         /**
                          * ユーザー名の隣のManageUserPageのリンクを押すとユーザー名が送られる
                          */
-                        //setResponsePage(new ManageThreadPage(senderUserNameModel));
+                        setResponsePage(new ManageUserPage(listItem.getModelObject().getSenderUserName()));
                     }
                 };
                 listItem.add(toManageUserPageLink.add(new Label("SenderUserName",listItem.getModelObject().getSenderUserName())));
@@ -79,6 +82,14 @@ public class ThreadPage extends WebPage {
                 listItem.add(new Label("PostTime",listItem.getModelObject().getPostTime()));
             }
         });
+
+        var toTopPageLink = new Link<>("TopPageLink"){
+            @Override
+            public void onClick(){
+                setResponsePage(new TopPage());
+            }
+        };
+        add(toTopPageLink);
 
         add(new WebSocketBehavior() {
             @Override
@@ -120,5 +131,11 @@ public class ThreadPage extends WebPage {
         };
         add(sendMessageForm);
         sendMessageForm.add(new TextField<>("SendMessage",sendMessageModel));
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        response.render(JavaScriptHeaderItem.forUrl("js/websocket-callback.js"));
     }
 }
