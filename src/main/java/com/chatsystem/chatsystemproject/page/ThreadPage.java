@@ -4,8 +4,10 @@ import com.chatsystem.chatsystemproject.bean.GlobalMessageInformation;
 import com.chatsystem.chatsystemproject.bean.ThreadInformation;
 import com.chatsystem.chatsystemproject.service.IThreadPageService;
 import org.apache.wicket.Application;
+import org.apache.wicket.Component;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -16,12 +18,23 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.protocol.ws.api.WebSocketBehavior;
+import org.apache.wicket.protocol.ws.api.WebSocketRequestHandler;
+import org.apache.wicket.protocol.ws.api.message.ConnectedMessage;
+import org.apache.wicket.protocol.ws.api.message.TextMessage;
+import org.apache.wicket.protocol.ws.api.registry.IKey;
+import org.apache.wicket.protocol.ws.api.registry.SimpleWebSocketConnectionRegistry;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @AuthorizeInstantiation(Roles.USER)
 @MountPath("Thread")
 public class ThreadPage extends WebPage {
+
+    private String applicationName;
+    private String sessionId;
+    private IKey key;
+
     @SpringBean
     private IThreadPageService threadPageService;
 
@@ -64,6 +77,34 @@ public class ThreadPage extends WebPage {
                 listItem.add(toManageUserPageLink.add(new Label("SenderUserName",listItem.getModelObject().getSenderUserName())));
                 listItem.add(new Label("Message",listItem.getModelObject().getMessage()));
                 listItem.add(new Label("PostTime",listItem.getModelObject().getPostTime()));
+            }
+        });
+
+        add(new WebSocketBehavior() {
+            @Override
+            protected void onConnect(ConnectedMessage message) {
+                super.onConnect(message);
+                applicationName = message.getApplication().getName();
+                sessionId = message.getSessionId();
+                key = message.getKey();
+            }
+
+            @Override
+            protected void onMessage(WebSocketRequestHandler handler, TextMessage message) {
+                super.onMessage(handler, message);
+                var registry = new SimpleWebSocketConnectionRegistry();
+                var connections = registry.getConnections(Application.get(applicationName));
+                connections.stream()
+                        .filter(con -> con != null)
+                        .filter(con -> con.isOpen())
+                        .forEach(con -> {
+                            try {
+                                globalMessageInformationListModel.setObject(threadPageService.getSendMessageInformation(itemModel.getObject().getThreadId()));
+                                handler.add(globalMessageListContainer);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
             }
         });
 
