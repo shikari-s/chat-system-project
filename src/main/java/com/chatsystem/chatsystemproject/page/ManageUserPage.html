@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:wicket="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+
+<li wicket:id="userStatus">
+    ユーザ名:<span wicket:id="userName"></span>
+    <a wicket:id="registerFriend" href="#"><span wicket:id="isFriend"></span></a>
+    <a wicket:id="blockUser" href="#"><span wicket:id="isBlocked"></span></a>
+</li>
 
 </body>
 </html>
