@@ -4,8 +4,11 @@ import com.chatsystem.chatsystemproject.bean.ThreadInformation;
 import com.chatsystem.chatsystemproject.service.ITopPageService;
 import com.chatsystem.chatsystemproject.session.MySession;
 import com.giffing.wicket.spring.boot.context.scan.WicketHomePage;
+import org.apache.wicket.Application;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -34,7 +37,6 @@ public class TopPage extends WebPage {
         add(new BookmarkablePageLink<>("ManageThreadPageLink", ManageThreadPage.class));
         add(new BookmarkablePageLink<>("UserPageLink",UserPage.class));
         add(new BookmarkablePageLink<>("PersonalMessagePageLink",PersonalMessagePage.class));
-
         //スレッド作成の際のスレッド名を取得
         var createThreadNameModel = Model.of("");
 
@@ -80,4 +82,9 @@ public class TopPage extends WebPage {
         add(myThreadListView);
 
     }
+//    @Override
+//    public void renderHead(IHeaderResponse response) {
+//        super.renderHead(response);
+//        response.render(JavaScriptHeaderItem.forUrl("js/websocket-callback.js"));
+//    }
 }

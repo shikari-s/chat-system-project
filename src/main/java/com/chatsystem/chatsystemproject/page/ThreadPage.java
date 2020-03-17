@@ -3,8 +3,10 @@ package com.chatsystem.chatsystemproject.page;
 import com.chatsystem.chatsystemproject.bean.GlobalMessageInformation;
 import com.chatsystem.chatsystemproject.bean.ThreadInformation;
 import com.chatsystem.chatsystemproject.service.IThreadPageService;
+import org.apache.wicket.Application;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -20,18 +22,33 @@ import org.wicketstuff.annotation.mount.MountPath;
 @AuthorizeInstantiation(Roles.USER)
 @MountPath("Thread")
 public class ThreadPage extends WebPage {
-
     @SpringBean
     private IThreadPageService threadPageService;
 
     public ThreadPage(IModel<ThreadInformation> itemModel){
+
+        var globalMessageListContainer = new WebMarkupContainer("GlobalMessageListContainer"){
+            @Override
+            protected void onInitialize() {
+                super.onInitialize();
+                setOutputMarkupId(true);
+            }
+        };
+        add(globalMessageListContainer);
 
         //メッセージのリアルタイム表示システム
         var globalMessageInformationListModel = Model.ofList(threadPageService.getSendMessageInformation(itemModel.getObject().getThreadId()));
 
         add(new Label("ThreadName", itemModel.getObject().getThreadName()));
 
-        add(new ListView<GlobalMessageInformation>("GlobalMessageListView",globalMessageInformationListModel){
+        globalMessageListContainer.add(new ListView<GlobalMessageInformation>("GlobalMessageListView",globalMessageInformationListModel){
+
+            @Override
+            protected void onInitialize() {
+                super.onInitialize();
+
+                setOutputMarkupId(true);
+            }
 
             @Override
             protected void populateItem(ListItem<GlobalMessageInformation> listItem) {

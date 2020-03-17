@@ -6,12 +6,13 @@
 </head>
 <body>
 <span wicket:id="ThreadName"></span>
-
+<div wicket:id="GlobalMessageListContainer">
 <ul wicket:id="GlobalMessageListView">
     <li><a wicket:id="ManageUserPageLink" href="#"><span wicket:id="SenderUserName"></span></a></li>
     <li><span wicket:id="Message"></span></li>
     <li><span wicket:id="PostTime"></span></li>
 </ul>
+</div>
 
 <form action="#" wicket:id="SendMessageForm">
     <div><input type="text" wicket:id="SendMessage"></div>
