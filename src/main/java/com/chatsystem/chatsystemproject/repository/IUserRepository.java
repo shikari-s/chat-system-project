@@ -7,10 +7,17 @@ import java.util.List;
 public interface IUserRepository {
     List<User> select();
 
-    User selectLastBy(String userName);
+    User selectBy(String userName);
 
-    List<User> selectByUserName(String userName);
+    User selectBy(long userId);
 
     public int insert(String userName, String userPass);
 
+    public void update(String userName, String password);
+
+    void update(String userName, String password, long userId);
+
+    List<User> selectByUserName(String userName);
+
+    User selectLastBy(String userName);
 }

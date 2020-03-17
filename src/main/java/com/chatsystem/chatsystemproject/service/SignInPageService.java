@@ -1,5 +1,6 @@
 package com.chatsystem.chatsystemproject.service;
 
+import com.chatsystem.chatsystemproject.bean.User;
 import com.chatsystem.chatsystemproject.repository.IUserRepository;
 import com.chatsystem.chatsystemproject.session.MySession;
 import org.springframework.beans.factory.annotation.Autowired;

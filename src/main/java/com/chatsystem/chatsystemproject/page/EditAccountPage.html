@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:wicket="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<form action="#" wicket:id="EditAccountForm">
+    <h2>アカウント名</h2>
+    <div><input type="text" value="" placeholder="" wicket:id="UserNameField"/></div>
+    <h3>パスワード</h3>
+    <div><input type="password" wicket:id="PasswordField"/></div>
+    <div>
+        <button wicket:id="EditAccountButton" type="submit">変更</button>
+    </div>
+</form>
 
 </body>
 </html>
