@@ -1,6 +1,7 @@
 package com.chatsystem.chatsystemproject.repository;
 
 import com.chatsystem.chatsystemproject.bean.RegisteredFriend;
+import com.chatsystem.chatsystemproject.bean.User;
 import com.chatsystem.chatsystemproject.bean.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -31,4 +32,13 @@ public class RegisteredFriendRepository implements IRegisteredFriendRepository {
         var sql = "insert into REGISTERED_FRIEND(REGISTERED_USER_ID,REGISTRANT_USER_ID) values (?,?)";
         jdbc.update(sql,myUserId,userId);
     }
+
+    @Override
+    public List<User> selectByFriend(Long userId) {
+        var sql = "select REGISTERED_FRIEND.REGISTRANT_USER_ID as ID, USER.NAME as NAME from REGISTERED_FRIEND " +
+                "inner join USER on REGISTERED_FRIEND.REGISTRANT_USER_ID = USER.ID " +
+                "where REGISTERED_FRIEND.REGISTERED_USER_ID = ?";
+        return jdbc.query(sql,new BeanPropertyRowMapper<>(User.class),userId);
+    };
+
 }

@@ -1,6 +1,7 @@
 package com.chatsystem.chatsystemproject.page;
 
 import com.chatsystem.chatsystemproject.bean.PersonalMessageInformation;
+import com.chatsystem.chatsystemproject.bean.User;
 import com.chatsystem.chatsystemproject.service.IPersonalMessagePageService;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
@@ -10,6 +11,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -21,7 +23,7 @@ public class PersonalMessagePage extends WebPage {
     @SpringBean
     private IPersonalMessagePageService personalMessagePageService;
 
-    public PersonalMessagePage(){
+    public PersonalMessagePage(IModel<User> itemModel){
         /**
          * 今回仮に引数なしの固定IDを利用しているが、本来の引数はIModel<PersonalMessageInformation> itemModelを想定
          */
@@ -50,7 +52,7 @@ public class PersonalMessagePage extends WebPage {
             @Override
             protected void onSubmit(){
                 personalMessagePageService.sendMessage(sendMessageModel.getObject(), testUserId);
-                setResponsePage(new PersonalMessagePage());
+                setResponsePage(new PersonalMessagePage(itemModel));
             }
         };
         add(sendMessageForm);

@@ -57,6 +57,7 @@ public class TopPage extends WebPage {
         //スレッド名を入力するテキストフィールド
         createThreadForm.add(new TextField<>("createThreadName",createThreadNameModel));
 
+
         //サービスからスレッドインフォメーションの情報をもらう
         var myThreadsListModel = Model.ofList(topPageService.getMyThreadList(MySession.get().getMyUserId()));
 
