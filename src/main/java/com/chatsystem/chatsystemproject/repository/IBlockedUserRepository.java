@@ -10,4 +10,6 @@ public interface IBlockedUserRepository {
     List<BlockedUser> selectBy(long userId);
 
     void insert(Long myUserId, Long userId);
+
+    void delete(Long myUserId, Long userId);
 }

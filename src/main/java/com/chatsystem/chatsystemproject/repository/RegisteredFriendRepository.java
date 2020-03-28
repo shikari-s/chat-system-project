@@ -31,4 +31,10 @@ public class RegisteredFriendRepository implements IRegisteredFriendRepository {
         var sql = "insert into REGISTERED_FRIEND(REGISTERED_USER_ID,REGISTRANT_USER_ID) values (?,?)";
         jdbc.update(sql,myUserId,userId);
     }
+
+    @Override
+    public void delete(Long myUserId,Long userId){
+        var sql = "delete from REGISTERED_FRIEND where (REGISTERED_USER_ID,REGISTRANT_USER_ID) = (?,?)";
+        jdbc.update(sql,myUserId,userId);
+    }
 }

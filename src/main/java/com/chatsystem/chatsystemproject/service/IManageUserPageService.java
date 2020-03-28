@@ -12,4 +12,8 @@ public interface IManageUserPageService {
     void registerFriend(Long userId);
 
     void blockFriend(Long userId);
+
+    void removeRegister(Long userId);
+
+    void removeBlock(Long userId);
 }

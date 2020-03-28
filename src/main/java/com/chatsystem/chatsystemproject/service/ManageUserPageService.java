@@ -74,4 +74,15 @@ public class ManageUserPageService implements IManageUserPageService{
         blockedUserRepository.insert(MySession.get().getMyUserId(),userId);
     }
 
+    @Override
+    public void removeRegister(Long userId){
+        registeredFriendRepository.delete(MySession.get().getMyUserId(),userId);
+    }
+
+    @Override
+    public void removeBlock(Long userId){
+        blockedUserRepository.delete(MySession.get().getMyUserId(),userId);
+    }
+
+
 }

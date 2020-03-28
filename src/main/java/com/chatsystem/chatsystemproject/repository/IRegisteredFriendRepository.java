@@ -10,4 +10,6 @@ public interface IRegisteredFriendRepository {
     List<RegisteredFriend> selectBy(long usserId);
 
     void insert(Long myUserId, Long userId);
+
+    void delete(Long myUserId, Long userId);
 }

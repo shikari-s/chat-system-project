@@ -27,20 +27,7 @@ public class ManageUserPage extends WebPage {
     @SpringBean
     private IManageUserPageService manageUserPageService;
 
-    IModel isFriendModel = Model.of("");
-
     public ManageUserPage(String userName){
-
-
-        //var userListWMC = new WebMarkupContainer("userListWMC");
-        //userListWMC.setOutputMarkupId(true);
-        //add(userListWMC);
-        /**
-
-        //ユーザーの友達登録、ブロックを行うボタンのForm
-        var manageUserForm = new Form<>("manageUserForm");
-        add(manageUserForm);
-         */
 
         var userStatusListModel = Model.ofList(manageUserPageService.getUserListTest(userName));
         var userStatusListView = new ListView<>("userStatus",userStatusListModel){
@@ -53,57 +40,101 @@ public class ManageUserPage extends WebPage {
                 var userNameLabel = new Label("userName",userNameModel);
                 listItem.add(userNameLabel);
 
-                //var isFriendModel = Model.of("");
-                if (userStatus.isRegisteredFriend() == false){
-                    isFriendModel = Model.of("友達登録");
-                }else if(userStatus.isRegisteredFriend() == true){
-                    isFriendModel = Model.of("登録解除");
-                }
+                //友達登録機能に用いるラベル
+                var isFriendModel = Model.of("友達登録");
                 var isFriendLabel = new Label("isFriend",isFriendModel);
                 isFriendLabel.setOutputMarkupId(true);
-                //userListWMC.add(isFriendLabel);
+                //登録済みなら表示しない
+                if (userStatus.isRegisteredFriend() == true){
+                    isFriendLabel.setOutputMarkupPlaceholderTag(true);
+                    isFriendLabel.setVisible(false);
+                }
 
-                //isFriendLabel.setOutputMarkupPlaceholderTag(true);
+                //登録解除機能に用いるラベル
+                var removeRegisterModel = Model.of("登録解除");
+                var removeRegisterLabel = new Label("removeRegister",removeRegisterModel);
+                removeRegisterLabel.setOutputMarkupId(true);
+                //友達登録をまだしていないなら表示しない
+                if (userStatus.isRegisteredFriend() == false){
+                    removeRegisterLabel.setOutputMarkupPlaceholderTag(true);
+                    removeRegisterLabel.setVisible(false);
+                }
+
+                //ブロック機能に用いるラベル
+                var isBlockedModel = Model.of("ブロックする");
+                var isBlockedLabel = new Label("isBlocked",isBlockedModel);
+                isBlockedLabel.setOutputMarkupId(true);
+                //ブロック中なら、ブロックするリンク(ラベル)を表示しない
+                if (userStatus.isBlocked() == true){
+                    //表示を切り替える前にPlaceholderTagでリンクが存在していた位置を記憶させる
+                    isBlockedLabel.setOutputMarkupPlaceholderTag(true);
+                    isBlockedLabel.setVisible(false);
+                }
+
+                //ブロック解除の機能に用いるラベル
+                var unBlockedModel = Model.of("ブロック解除");
+                var removeBlockedLabel = new Label("removeBlocked",unBlockedModel);
+                removeBlockedLabel.setOutputMarkupId(true);
+                //ブロックしていないなら、ブロック解除するリンク(ラベル)を表示しない
+                if(userStatus.isBlocked() == false){
+                    removeBlockedLabel.setOutputMarkupPlaceholderTag(true);
+                    removeBlockedLabel.setVisible(false);
+                }
+
+                //友達登録を行うリンク
                 var registerFriendLink = new AjaxLink<>("registerFriend"){
                     @Override
                     public void onClick(AjaxRequestTarget target){
                         //友達登録のための機能
                         manageUserPageService.registerFriend(userStatus.getUserId());
-                        //isFriendModel = Model.of("");
                         //isFriendLabelが見えなくなるように画面の一部を更新
-                        target.add(isFriendLabel.setVisible(false));
-                        //isFriendLabel.setOutputMarkupPlaceholderTag(false);
+                        target.add(isFriendLabel.setOutputMarkupPlaceholderTag(true),isFriendLabel.setVisible(false),removeRegisterLabel.setVisible(true));
+
                     }
                 };
-                //var isFriendLabel = new Label("isFriend",isFriendModel);
                 registerFriendLink.add(isFriendLabel);
                 listItem.add(registerFriendLink);
 
-                var isBlockedModel = Model.of("");
-                if (userStatus.isBlocked() == false){
-                    isBlockedModel = Model.of("ブロックする");
-                }else if(userStatus.isBlocked() == true){
-                    isBlockedModel = Model.of("");
-                }
-                var blockUserLink = new Link<>("blockUser"){
+                //友達登録の解除を行うリンク
+                var removeRegisterLink = new AjaxLink<>("removeRegisterUser"){
                     @Override
-                    public void onClick(){
-                        manageUserPageService.blockFriend(userStatus.getUserId());
+                    public void onClick(AjaxRequestTarget target){
+                        //登録解除機能
+                        manageUserPageService.removeRegister(userStatus.getUserId());
+                        //removeRegisterLabelが見えなくなるように画面の一部を更新
+                        target.add(removeRegisterLabel.setOutputMarkupPlaceholderTag(true),removeRegisterLabel.setVisible(false),isFriendLabel.setVisible(true));
                     }
                 };
-                var isBlockedLabel = new Label("isBlocked",isBlockedModel);
+                removeRegisterLink.add(removeRegisterLabel);
+                listItem.add(removeRegisterLink);
+
+                //ブロックを行うリンク
+                var blockUserLink = new AjaxLink<>("blockUser"){
+                    @Override
+                    public void onClick(AjaxRequestTarget target){
+                        //ブロックの機能
+                        manageUserPageService.blockFriend(userStatus.getUserId());
+                        //isBlockLabelが見えなくなるように画面の一部を更新
+                        target.add(isBlockedLabel.setOutputMarkupPlaceholderTag(true),isBlockedLabel.setVisible(false),removeBlockedLabel.setVisible(true));
+                    }
+                };
                 blockUserLink.add(isBlockedLabel);
                 listItem.add(blockUserLink);
 
-                /**
-                AjaxButton friendAjaxButton = new AjaxButton("friendAjaxButton"){
-                  @Override
-                  protected void onSubmit(AjaxRequestTarget target){
-                      super.onSubmit(target);
-                      target.add();
+                //ブロック解除を行うリンク
+                var removeBlockUserLink = new AjaxLink<>("removeBlockUser"){
+                    @Override
+                    public void onClick(AjaxRequestTarget target){
+                        //ブロック解除の機能
+                        manageUserPageService.removeBlock(userStatus.getUserId());
+                        //removeBlockLabelが見えなくなるように画面の一部を更新
+                        target.add(removeBlockedLabel.setOutputMarkupPlaceholderTag(true),removeBlockedLabel.setVisible(false),isBlockedLabel.setVisible(true));
 
-                  }
-                };*/
+                    }
+                };
+                removeBlockUserLink.add(removeBlockedLabel);
+                listItem.add(removeBlockUserLink);
+
             }
         };
         add(userStatusListView);
