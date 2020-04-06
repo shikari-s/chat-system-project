@@ -12,6 +12,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -29,6 +30,8 @@ public class UserPage extends WebPage {
     public UserPage() {
 
         var userNameModel = Model.of("");
+
+        add(new BookmarkablePageLink<>("toTopPageLink",TopPage.class));
 
         //ユーザー検索フォームの処理
         var searchUserForm = new Form<>("searchUserForm");
