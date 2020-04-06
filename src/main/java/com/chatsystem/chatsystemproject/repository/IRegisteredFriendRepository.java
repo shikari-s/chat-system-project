@@ -12,6 +12,8 @@ public interface IRegisteredFriendRepository {
 
     void insert(Long myUserId, Long userId);
 
+    void delete(Long myUserId, Long userId);
+
     /**
      * 友達一覧の情報をUserBeanのリストとして取得
      * @param userId

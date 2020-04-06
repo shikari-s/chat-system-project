@@ -41,4 +41,10 @@ public class RegisteredFriendRepository implements IRegisteredFriendRepository {
         return jdbc.query(sql,new BeanPropertyRowMapper<>(User.class),userId);
     };
 
+
+    @Override
+    public void delete(Long myUserId,Long userId){
+        var sql = "delete from REGISTERED_FRIEND where (REGISTERED_USER_ID,REGISTRANT_USER_ID) = (?,?)";
+        jdbc.update(sql,myUserId,userId);
+    }
 }

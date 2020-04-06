@@ -4,13 +4,32 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-
+<body bgcolor=#fffaf0>
+<h3>検索結果</h3>
 <li wicket:id="userStatus">
-    ユーザ名:<span wicket:id="userName"></span>
+    ユーザ名:<span wicket:id="userName"></span><br>
     <a wicket:id="registerFriend" href="#"><span wicket:id="isFriend"></span></a>
+    <a wicket:id="removeRegisterUser" href="#"><span wicket:id="removeRegister"></span></a>
     <a wicket:id="blockUser" href="#"><span wicket:id="isBlocked"></span></a>
+    <a wicket:id="removeBlockUser" href="#"><span wicket:id="removeBlocked"></span></a>
 </li>
-
 </body>
+<style>
+    h3{
+        padding: 0.4em 0.5em;/*文字の上下 左右の余白*/
+        color: #494949;/*文字色*/
+        background: #f4f4f4;/*背景色*/
+        border-left: solid 5px #7db4e6;/*左線*/
+        border-bottom: solid 3px #d7d7d7;/*下線*/
+    }
+    li {
+        width: 80%;
+        padding: 0.5em 1em;
+        margin: 2em auto;
+        color: #5d627b;
+        background: white;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+    }
+
+</style>
 </html>
