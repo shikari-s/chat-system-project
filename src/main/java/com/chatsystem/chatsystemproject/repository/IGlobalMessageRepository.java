@@ -9,4 +9,6 @@ public interface IGlobalMessageRepository {
     List<GlobalMessage> select();
 
     void insert(GlobalMessage globalMessage);
+
+    void delete(LocalDateTime postTime, long senderUserId, long threadId);
 }
