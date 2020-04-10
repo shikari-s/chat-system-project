@@ -31,4 +31,9 @@ public class ThreadPageService implements IThreadPageService {
     public void sendMessage(String message, long threadId){
         globalMessageRepository.insert(new GlobalMessage(message, LocalDateTime.now(), MySession.get().getMyUserId(), threadId));
     }
+
+    @Override
+    public void deleteMessage(LocalDateTime postTime, long threadId){
+        globalMessageRepository.delete(postTime, MySession.get().getMyUserId(), threadId);
+    }
 }

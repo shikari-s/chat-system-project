@@ -36,7 +36,7 @@ public class TopPage extends WebPage {
         add(new BookmarkablePageLink<>("EditAccountPageLink",EditAccountPage.class));
         add(new BookmarkablePageLink<>("ManageThreadPageLink", ManageThreadPage.class));
         add(new BookmarkablePageLink<>("UserPageLink",UserPage.class));
-        add(new BookmarkablePageLink<>("PersonalMessagePageLink",PersonalMessagePage.class));
+        //add(new BookmarkablePageLink<>("PersonalMessagePageLink",PersonalMessagePage.class));
         //スレッド作成の際のスレッド名を取得
         var createThreadNameModel = Model.of("");
 
@@ -81,6 +81,8 @@ public class TopPage extends WebPage {
             }
         };
         add(myThreadListView);
+
+
 
     }
 //    @Override

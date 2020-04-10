@@ -25,4 +25,10 @@ public class GlobalMessageRepository implements IGlobalMessageRepository {
         var sql = "insert into GLOBAL_MESSAGE(MESSAGE, POST_TIME, SENDER_USER_ID, THREAD_ID) values (?, ?, ?, ?)";
         jdbc.update(sql, globalMessage.getMessage(), globalMessage.getPostTime(), globalMessage.getSenderUserId(), globalMessage.getThreadId());
     }
+
+    @Override
+    public void delete(LocalDateTime postTime, long senderUserId, long threadId){
+        var sql = "delete from GLOBAL_MESSAGE where (POST_TIME, SENDER_USER_ID, THREAD_ID) = (?,?,?)";
+        jdbc.update(sql, postTime, senderUserId, threadId);
+    }
 }
