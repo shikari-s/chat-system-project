@@ -6,6 +6,7 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -20,6 +21,7 @@ public class EditAccountPage extends WebPage {
         var userNameModel = Model.of(user.getName());
         var passwordModel = Model.of("");
         var userIdModel = Model.of(user.getId());//UserのIdを持ってくる
+
         var editAccountForm = new Form<>("EditAccountForm");
         add(editAccountForm);
         editAccountForm.add(new Button("EditAccountButton"){
@@ -29,7 +31,7 @@ public class EditAccountPage extends WebPage {
                 var password = passwordModel.getObject();
                 var userId = userIdModel.getObject();
                 editAccountPageService.Update(userName,password,userId);
-                setResponsePage(new UserPage());
+                setResponsePage(new TopPage());
             }
         });
 
@@ -39,10 +41,15 @@ public class EditAccountPage extends WebPage {
         var passwordField = new PasswordTextField("PasswordField",passwordModel);
         editAccountForm.add(passwordField);
 
-
-
         add(editAccountForm);
 
+        var toTopPageLink = new Link<>("TopPageLink"){
+            @Override
+            public void onClick(){
+                setResponsePage(new TopPage());
+            }
+        };
+        add(toTopPageLink);
     }
 
 }

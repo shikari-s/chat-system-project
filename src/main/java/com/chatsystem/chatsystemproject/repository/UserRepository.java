@@ -45,23 +45,15 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public int insert(String userName,String password){
+    public void insert(String userName,String password){
         var sql = "insert into User(NAME,PASSWORD) values(?,?)";
-        var n = jdbc.update(sql, userName, password);
-        return n;
-
-    }
-
-    @Override
-    public void update(String userName, String password) {
-
-    }
-
-    @Override
-    public void update(String userName, String password, long userId) {
-        var sql = "UPDATE USER SET NUME=userName,PASSWORD=password WHERE ID=userId";
         jdbc.update(sql, userName, password);
+    }
 
+    @Override
+    public void update(String userName,String password, long userId) {
+        var sql = "UPDATE USER SET NAME = ?, PASSWORD = ? WHERE ID = ? ";
+        jdbc.update(sql, userName,password,userId);
     }
 
     @Override

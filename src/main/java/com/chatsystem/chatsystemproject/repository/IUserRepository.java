@@ -13,9 +13,7 @@ public interface IUserRepository {
 
     User selectBy(long userId);
 
-    public int insert(String userName, String userPass);
-
-    public void update(String userName, String password);
+    void insert(String userName, String userPass);
 
     void update(String userName, String password, long userId);
 

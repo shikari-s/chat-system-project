@@ -17,9 +17,11 @@ public class EditAccountPageService implements IEditAccountPageService {
 
 
     @Override
-    public void Update(String userName, String password,long userId) {
-        userRepository.update(userName, password,userId);
+    public void Update(String userName,String password,long userId) {
+        userRepository.update(userName,password,userId);
     }
+
+
 
     @Override
     public User getMySessionUser(){

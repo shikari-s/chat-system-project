@@ -16,6 +16,6 @@ public class CreateAccoountPageService implements ICreateAccoountPageService{
 
     @Override
     public void registerUser(String userName, String password) {
-        int n = UserRepository.insert(userName, password);
+        UserRepository.insert(userName, password);
     }
 }
