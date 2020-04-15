@@ -32,4 +32,9 @@ public class PersonalMessagePageService implements IPersonalMessagePageService{
     public void sendMessage(String message, long receiverUserId){
         personalMessageRepository.insert(new PersonalMessage(message, LocalDateTime.now(), MySession.get().getMyUserId(), receiverUserId));
     }
+
+    @Override
+    public void deleteMessage(LocalDateTime postTime, long receiverUserId){
+        personalMessageRepository.delete(postTime, MySession.get().getMyUserId(), receiverUserId);
+    }
 }

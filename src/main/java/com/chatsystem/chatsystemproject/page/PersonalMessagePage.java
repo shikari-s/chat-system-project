@@ -7,6 +7,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
@@ -38,9 +39,19 @@ public class PersonalMessagePage extends WebPage {
 
             @Override
             protected void populateItem(ListItem<PersonalMessageInformation> listItem) {
+                var deleteMessageForm = new Form<>("DeleteMessage");
                 listItem.add(new Label("SenderUserName",listItem.getModelObject().getSenderUserName()));
                 listItem.add(new Label("Message",listItem.getModelObject().getMessage()));
                 listItem.add(new Label("PostTime",listItem.getModelObject().getPostTime()));
+                listItem.add(deleteMessageForm);
+                deleteMessageForm.add(new Button("DeleteMessageButton"){
+                    @Override
+                    public void onSubmit(){
+                        super.onSubmit();
+                        personalMessagePageService.deleteMessage(listItem.getModelObject().getPostTime(), itemModel.getObject().getId());
+                        setResponsePage(new PersonalMessagePage(itemModel));
+                    }
+                });
             }
         });
 

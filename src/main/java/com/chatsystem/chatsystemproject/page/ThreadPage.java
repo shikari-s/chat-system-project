@@ -70,7 +70,7 @@ public class ThreadPage extends WebPage {
 
             @Override
             protected void populateItem(ListItem<GlobalMessageInformation> listItem) {
-                var DeleteMessageForm = new Form<>("DeleteMessage");
+                var deleteMessageForm = new Form<>("DeleteMessage");
 
                 var toManageUserPageLink = new Link<>("ManageUserPageLink"){
                     @Override
@@ -86,8 +86,8 @@ public class ThreadPage extends WebPage {
                 listItem.add(toManageUserPageLink.add(new Label("SenderUserName",listItem.getModelObject().getSenderUserName())));
                 listItem.add(new Label("Message",listItem.getModelObject().getMessage()));
                 listItem.add(new Label("PostTime",listItem.getModelObject().getPostTime()));
-                listItem.add(DeleteMessageForm);
-                DeleteMessageForm.add(new Button("DeleteMessageButton"){
+                listItem.add(deleteMessageForm);
+                deleteMessageForm.add(new Button("DeleteMessageButton"){
                     @Override
                     public void onSubmit(){
                         super.onSubmit();
