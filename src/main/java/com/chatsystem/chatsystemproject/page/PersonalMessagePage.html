@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>DirectMessage</title>
 </head>
-<body>
-<span wicket:id="ReceiverUserName"></span>
+<body bgcolor=#fffaf0>
+<h3 wicket:id="ReceiverUserName"></h3>
 
 <ul wicket:id="PersonalMessageListView">
-    <li><span wicket:id="SenderUserName"></span></li>
-    <li><span wicket:id="Message"></span></li>
-    <li><span wicket:id="PostTime"></span></li>
+    <div wicket:id="SenderUserName"></div>
+    <div wicket:id="Message"></div>
+    <div wicket:id="PostTime"></div>
     <form action="#" wicket:id="DeleteMessage">
         <button wicket:id="DeleteMessageButton" type="submit">メッセージ削除</button>
     </form>
@@ -22,4 +22,22 @@
 </form>
 <a wicket:id="TopPageLink" href="#">Topへ戻る</a>
 </body>
+<style>
+    h3{
+        padding: 0.4em 0.5em;/*文字の上下 左右の余白*/
+        color: #494949;/*文字色*/
+        background: #f4f4f4;/*背景色*/
+        border-left: solid 5px #7db4e6;/*左線*/
+        border-bottom: solid 3px #d7d7d7;/*下線*/
+    }
+
+    ul {
+        width: 80%;
+        padding: 0.5em 1em;
+        margin: 2em auto;
+        color: black;
+        background: white;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+    }
+</style>
 </html>

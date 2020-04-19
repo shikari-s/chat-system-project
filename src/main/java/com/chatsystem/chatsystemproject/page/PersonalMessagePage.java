@@ -3,6 +3,7 @@ package com.chatsystem.chatsystemproject.page;
 import com.chatsystem.chatsystemproject.bean.PersonalMessageInformation;
 import com.chatsystem.chatsystemproject.bean.User;
 import com.chatsystem.chatsystemproject.service.IPersonalMessagePageService;
+import com.chatsystem.chatsystemproject.session.MySession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.WebPage;
@@ -52,6 +53,9 @@ public class PersonalMessagePage extends WebPage {
                         setResponsePage(new PersonalMessagePage(itemModel));
                     }
                 });
+                if (MySession.get().getMyUserName() != listItem.getModelObject().getSenderUserName()){
+                    deleteMessageForm.setVisible(false);
+                }
             }
         });
 

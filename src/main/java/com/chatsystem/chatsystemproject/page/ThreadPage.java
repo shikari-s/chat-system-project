@@ -95,6 +95,9 @@ public class ThreadPage extends WebPage {
                         setResponsePage(new ThreadPage(itemModel));
                     }
                 });
+                if (MySession.get().getMyUserName() != listItem.getModelObject().getSenderUserName()) {
+                    deleteMessageForm.setVisible(false);
+                }
             }
         });
 
